@@ -10,7 +10,7 @@ const {GoogleSpreadsheet } = require('google-spreadsheet');
 class App extends React.Component {
 
   state={
-      scores:{"201602004":[1,2,3]},
+      scores:{},
       titles:[],
       averages:[],
       medians:[]
