@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-//import {BootstrapTable, TableHeaderColumn} from 'react-bootstrap-table';
+import 'bootstrap/dist/css/bootstrap.css';
 import { Table } from 'reactstrap';
 
 class ScoreTable extends Component{
@@ -28,32 +28,32 @@ class ScoreTable extends Component{
     }
 
     return (
-      <Table>
-        <thead>
-          <tr>
-            <th>일자</th>
-          {titles.map((title,i)=>{return (<th key={i}>{title}</th>);})}
-          </tr>
-        </thead>
-        <tbody>
-          <tr>
-            <th>점수</th>
-          {
-            score_data
-          }
-          </tr>
-        </tbody>
-        <tfoot>
-          <tr>
-            <th>평균</th>
-            {averages.map((average,i)=>{return (<td key={i}>{average}</td>);})}
-          </tr>
-          <tr>
-            <th>중앙값</th>
-            {medians.map((median,i)=>{return (<td key={i}>{median}</td>);})}
-          </tr>
-        </tfoot>
-      </Table>
+      <div className='table-responsive'>
+        <Table>
+          <thead>
+            <tr className="table-active">
+              <th>일자</th>
+            {titles.map((title,i)=>{return (<th key={i}>{title}</th>);})}
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <th>점수</th>{score_data}
+            </tr>
+          </tbody>
+          <tfoot>
+            <tr className="table-light">
+              <th>평균</th>
+              {averages.map((average,i)=>{return (<td key={i}>{average}</td>);})}
+            </tr>
+            <tr className="table-light">
+              <th>중앙값</th>
+              {medians.map((median,i)=>{return (<td key={i}>{median}</td>);})}
+            </tr>
+          </tfoot>
+        </Table>
+      </div>
+
     )
   }
 };
