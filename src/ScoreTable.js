@@ -16,7 +16,7 @@ class ScoreTable extends Component{
 
   render(){
 
-    const { titles, averages, medians } = this.props;
+    const { titles, averages, medians, maxs } = this.props;
 
     let score_data = [];
 
@@ -49,6 +49,10 @@ class ScoreTable extends Component{
             <tr className="table-light">
               <th>중앙값</th>
               {medians.map((median,i)=>{return (<td key={i}>{median}</td>);})}
+            </tr>
+            <tr className="table-light">
+              <th>만점</th>
+              {maxs.map((max,i)=>{return (<td key={i}>{max}</td>);})}
             </tr>
           </tfoot>
         </Table>
