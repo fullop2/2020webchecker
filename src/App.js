@@ -4,6 +4,7 @@ import { Input, Container } from 'reactstrap';
 import './App.css';
 import ScoreTable from './ScoreTable.js';
 
+
 const {GoogleSpreadsheet } = require('google-spreadsheet');
 
 class DataFrame{
@@ -11,6 +12,7 @@ class DataFrame{
   titles=[];
   averages=[];
   medians=[];
+  maxs=[];
 }
 
 
@@ -70,17 +72,23 @@ class App extends React.Component {
         const current_scores = row_loader(row_num);
         dataframe.scores[studentID] = current_scores;
       }
-      dataframe.averages = row_loader(50);
-      dataframe.medians = row_loader(51);
+      dataframe.averages = row_loader(45);
+      dataframe.medians = row_loader(46);
+      dataframe.maxs = row_loader(47);
 
       if(type==='quiz')
         context.setState({quizDataframe: dataframe});
       else if(type === 'review')
         context.setState({reviewDataframe: dataframe});
     }
-
-    loader('1ZKTJtiC2Kd8g_2PoEHRSDSJG3GjxrGuS2A5ceMYMprI','quiz',this);
-    loader('19bfYAA6ZFV7C2lvF2hsui6hbwX-2ZsT2lApVEJeZJHg','review',this);
+    console.log(this.props);
+    const params = new URLSearchParams(window.location.search);
+    const quizURL = params.get('quiz');
+    const reviewURL = params.get('review');
+    //'1ZKTJtiC2Kd8g_2PoEHRSDSJG3GjxrGuS2A5ceMYMprI'
+    loader(quizURL,'quiz',this);
+    //'19bfYAA6ZFV7C2lvF2hsui6hbwX-2ZsT2lApVEJeZJHg'
+    loader(reviewURL,'review',this);
   }
 
   onChange(e){
@@ -90,7 +98,7 @@ class App extends React.Component {
   render(){
     return (
       <Container>
-        <div><h1 className="text-center">07 분반 퀴즈 복습 점수</h1></div>
+        <div><h1 className="text-center">퀴즈 복습 점수</h1></div>
         <Input
             type="number"
             placeholder='type your student ID here'
@@ -103,14 +111,17 @@ class App extends React.Component {
             titles={this.state.quizDataframe.titles}
             scores={this.state.quizDataframe.scores[this.state.studentID]}
             averages={this.state.quizDataframe.averages}
-            medians={this.state.quizDataframe.medians}/>
+            medians={this.state.quizDataframe.medians}
+            maxs={this.state.quizDataframe.maxs}/>
         <div><h2 className='pl-4 pt-4'>복습 점수</h2></div>
           <ScoreTable
             titles={this.state.reviewDataframe.titles}
             scores={this.state.reviewDataframe.scores[this.state.studentID]}
             averages={this.state.reviewDataframe.averages}
-            medians={this.state.reviewDataframe.medians}/>
-        <div><p className='text-center pt-3'>채점 사항에 대한 문의는 튜터에게 해주세요</p>
+            medians={this.state.reviewDataframe.medians}
+            maxs={this.state.reviewDataframe.maxs}/>
+        <div  className='text-center pt-3'>
+          <p>채점 사항에 대한 문의는 튜터에게 해주세요</p>
         </div>
       </Container>
     );
