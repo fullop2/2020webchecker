@@ -36,7 +36,7 @@ class App extends React.Component {
 
     async function loader(documentDirection,type,context){
       const doc = await new GoogleSpreadsheet (documentDirection);
-      await doc.useServiceAccountAuth(require('./quickstart-1599744608145-251f214d4b6c.json'));
+      await doc.useServiceAccountAuth(require('./APIKEY.json'));
       await doc.loadInfo();
       const sheet = doc.sheetsByIndex[0];
 
